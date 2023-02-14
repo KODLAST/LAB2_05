@@ -53,8 +53,8 @@ DMA_ADC_BufferType buffer[10];
 
 uint16_t AvgVolt, AvgTemp;
 uint16_t AvgSumVolt, AvgSumTemp;
-uint16_t AvgSumVoltBitBeforeGain, AvgSumTempBitBerforeGain;
-uint16_t AvgSumVoltBitAfterGain, AvgSumTempBitAfterGain;
+uint16_t AvgSumVoltBitBeforeGain , celsius;
+uint16_t AvgSumVoltBitAfterGain, Kelvin;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -118,9 +118,17 @@ int main(void)
 		 AvgSumVolt += buffer[i].Voltage;
 	  }
 	  AvgVolt = AvgSumVolt/10;
-	  AvgSumVoltBitBeforeGain = (AvgSumVolt*0.081);
-	  AvgSumTempBitAfterGain = AvgSumVoltBitBeforeGain*2.025;
-	  AvgSumVolt = 0;
+	  	  AvgSumVoltBitBeforeGain = (AvgSumVolt*0.081);
+	  	  AvgSumVoltBitAfterGain = AvgSumVoltBitBeforeGain*2.025;
+	  	  AvgSumVolt = 0;
+
+	  for(int j = 0 ; j< 10 ; j++ ){
+	  		 AvgSumTemp += buffer[j].Temp;
+	  	  }
+	  AvgTemp = AvgSumTemp/10;
+	  celsius = AvgTemp*0.0243;
+	  Kelvin = celsius+273.15;
+	  AvgSumTemp = 0;
 
 
   }
